@@ -82,6 +82,9 @@ def generate_txt(prompt, num_return_sequences=10, max_length=1024, top_p=0.9):
                 print(tokenizer.decode([sampled_id], skip_special_tokens=True), end="")
                 continue
             else:
+                tune = "X:"+str(c_idx+1)+"\n"+tokenizer.decode(input_ids.squeeze(), skip_special_tokens=True)
+                with open('output_tunes/'+str(c_idx+1)+".abc", "w") as f:
+                    f.write(tune)
                 print("\n")
                 break
 
