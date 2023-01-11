@@ -1,4 +1,3 @@
-import os
 import json
 import torch
 import random
@@ -103,7 +102,7 @@ class MyDataset(Dataset):
     def __getitem__(self, idx):
         return self.input_ids[idx], self.input_masks[idx]
 
-with open('abc_notation_cc.json') as f:
+with open('abc_cc.json') as f:
     data = json.load(f)
     train_set, eval_set = split_data(data)
     data = []

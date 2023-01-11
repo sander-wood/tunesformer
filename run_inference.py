@@ -1,17 +1,12 @@
+import os
+import time
 import torch
-from samplings import top_p_sampling
+import random
+import argparse
 from transformers import GPT2LMHeadModel
+from samplings import top_p_sampling, temperature_sampling
 
-if torch.cuda.is_available():    
-    device = torch.device("cuda")
-    print('There are %d GPU(s) available.' % torch.cuda.device_count())
-    print('We will use the GPU:', torch.cuda.get_device_name(0))
-
-else:
-    print('No GPU available, using the CPU instead.')
-    device = torch.device("cpu")
-
-class MyTokenizer():
+class ABCTokenizer():
     def __init__(self):
         self.pad_token_id = 0
         self.bos_token_id = 2
@@ -57,42 +52,92 @@ class MyTokenizer():
         txt_ids = [int(i) for i in txt_ids]
         return [self.bos_token_id]+txt_ids+[self.eos_token_id]
 
-tokenizer = MyTokenizer()
-model = GPT2LMHeadModel.from_pretrained('weights').to(device)
+def generate_abc(prompt, args):
+    
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
 
-# generate a sentence
-def generate_txt(prompt, num_return_sequences=10, max_length=1024, top_p=0.9):
-    model.eval()
+    if torch.cuda.is_available():    
+        device = torch.device("cuda")
+        print('There are %d GPU(s) available.' % torch.cuda.device_count())
+        print('We will use the GPU:', torch.cuda.get_device_name(0), '\n')
+    else:
+        print('No GPU available, using the CPU instead.\n')
+        device = torch.device("cpu")
+
+    num_tunes = args.num_tunes
+    max_length = args.max_length
+    top_p = args.top_p
+    temperature = args.temperature
+    seed = args.seed
+    print(" HYPERPARAMETERS ".center(60, "#"), '\n')
+    args = vars(args)
+    for key in args.keys():
+        print(key+': '+str(args[key]))
+
+    tokenizer = ABCTokenizer()
+    # model = GPT2LMHeadModel.from_pretrained('weights').to(device)
+    model = GPT2LMHeadModel.from_pretrained('sander-wood/tunesformer').to(device)
+
     if prompt:
         ids = tokenizer.encode(prompt)['input_ids'][:-1]
     else:
         ids = torch.tensor([tokenizer.bos_token_id])
 
-    for c_idx in range(num_return_sequences):
+    random.seed(seed)
+    tunes = ""
+    print("\n"+" OUTPUT TUNES ".center(60, "#"))
+
+    for c_idx in range(num_tunes):
         print("\nX:"+str(c_idx+1)+"\n", end="")
         print(tokenizer.decode(ids[1:], skip_special_tokens=True), end="")
         input_ids = ids.unsqueeze(0)
         for t_idx in range(max_length):
+            if seed!=None:
+                n_seed = random.randint(0, 1000000)
+                random.seed(n_seed)
+            else:
+                n_seed = None
+
             outputs = model(input_ids=input_ids.to(device))
             probs = outputs.logits[0][-1]
             probs = torch.nn.Softmax(dim=-1)(probs).cpu().detach().numpy()
-            sampled_id = top_p_sampling(probs, top_p=top_p)
+            sampled_id = temperature_sampling(probs=top_p_sampling(probs, 
+                                                                top_p=top_p, 
+                                                                seed=n_seed,
+                                                                return_probs=True),
+                                            seed=n_seed,
+                                            temperature=temperature)
             input_ids = torch.cat((input_ids, torch.tensor([[sampled_id]])), 1)
             if sampled_id!=tokenizer.eos_token_id:
                 print(tokenizer.decode([sampled_id], skip_special_tokens=True), end="")
                 continue
             else:
                 tune = "X:"+str(c_idx+1)+"\n"+tokenizer.decode(input_ids.squeeze(), skip_special_tokens=True)
-                with open('output_tunes/'+str(c_idx+1)+".abc", "w") as f:
-                    f.write(tune)
+                tunes += tune+"\n\n"
                 print("\n")
                 break
 
+    timestamp = time.strftime("%a_%d_%b_%Y_%H_%M_%S", time.localtime()) 
+    with open('output_tunes/'+timestamp+'.abc', 'w') as f:
+        f.write(tunes)
+
+def get_args(parser):
+
+    parser.add_argument('-num_tunes', type=int, default=3, help='the number of independently computed returned tunes')
+    parser.add_argument('-max_length', type=int, default=1024, help='integer to define the maximum length in tokens of each tune')
+    parser.add_argument('-top_p', type=float, default=0.9, help='float to define the tokens that are within the sample operation of text generation')
+    parser.add_argument('-temperature', type=float, default=1., help='the temperature of the sampling operation')
+    parser.add_argument('-seed', type=int, default=None, help='seed for randomstate')
+    args = parser.parse_args()
+
+    return args
+
 if __name__ == "__main__":
-    control_codes = "[SECS_3][BARS_8][SIM_3][BARS_8][SIM_10][SIM_3][BARS_8]"
+    control_codes = "[SECS_3][BARS_4][SIM_6][BARS_4][SIM_10][SIM_6][BARS_4]"
     prompt = """L:1/4
 M:4/4
 K:C
- "C" E3/2 D/"G" G3/2"C" E/ | c G E G |"G" D3/2 E/ F A |"G" A G"C" C2 | E3/2 D/"G" G3/2"C" E/ |
- c G E G |"G" D3/2 E/"D" F D |"G" A G"C" c2 ||"""
-    generate_txt(control_codes+prompt)
+"C" C C G G |"F" A A"C" G2 |"G" F F"C" E E |"G" D D"C" C2 ||"""
+    parser = argparse.ArgumentParser()
+    args = get_args(parser)
+    generate_abc(control_codes+prompt, args)
