@@ -4,7 +4,7 @@
 
 TunesFormer is a Transformer-based melody generation system trained on 285,449 melodies with musical forms (represented by control codes), where all scores are represented in ABC notation. It was introduced in the paper [TunesFormer: Forming Tunes with Control Codes](https://arxiv.org/abs/2301.02884) by Wu et al., the [checkpoint](https://huggingface.co/sander-wood/tunesformer) and [dataset](https://huggingface.co/datasets/sander-wood/abc_cc) are released in huggingface. 
 
-By utilizing specific symbols commonly found in ABC notation to indicate section boundaries, TunesFormer can understand and generate melodies with given musical forms based on control codes.
+By utilizing specific symbols commonly found in ABC notation to indicate section boundaries, TunesFormer can understand and generate melodies with given musical forms based on control codes. The checkpoint released in huggingface is TunesFormer-GP (Global Placement), where all the control codes are placed at the beginning of the ABC notation.
 
 ## Intended uses & limitations
 
