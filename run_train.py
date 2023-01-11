@@ -41,12 +41,13 @@ def collate_batch(batch):
 
   return input_ids_list.to(device), attention_list.to(device), output_ids_list.to(device)
 
-class MyTokenizer():
+class ABCTokenizer():
     def __init__(self):
         self.pad_token_id = 0
         self.bos_token_id = 2
         self.eos_token_id = 3
         self.merged_tokens = []
+
         for i in range(8):
             self.merged_tokens.append('[SECS_'+str(i+1)+']')
         for i in range(32):
@@ -73,18 +74,18 @@ class MyTokenizer():
         return txt
 
     def txt2ids(self, text, merged_tokens):
-        ids = [str(ord(c)) for c in text]
+        ids = ["\""+str(ord(c))+"\"" for c in text]
         txt_ids = ' '.join(ids)
         for t_idx, token in enumerate(merged_tokens):
-            token_ids = [str(ord(c)) for c in token]
+            token_ids = ["\""+str(ord(c))+"\"" for c in token]
             token_txt_ids = ' '.join(token_ids)
-            txt_ids = txt_ids.replace(token_txt_ids, str(t_idx+128))
+            txt_ids = txt_ids.replace(token_txt_ids, "\""+str(t_idx+128)+"\"")
         
         txt_ids = txt_ids.split(' ')
-        txt_ids = [int(i) for i in txt_ids]
+        txt_ids = [int(i[1:-1]) for i in txt_ids]
         return [self.bos_token_id]+txt_ids+[self.eos_token_id]
     
-class MyDataset(Dataset):
+class ABCDataset(Dataset):
     def __init__(self, items, tokenizer, max_length=1024):
         self.input_ids = []
         self.input_masks = []
@@ -107,9 +108,9 @@ with open('abc_cc.json') as f:
     train_set, eval_set = split_data(data)
     data = []
 
-tokenizer = MyTokenizer()
-train_set = DataLoader(MyDataset(train_set, tokenizer), batch_size=batch_size, collate_fn=collate_batch)
-eval_set = DataLoader(MyDataset(eval_set, tokenizer), batch_size=batch_size, collate_fn=collate_batch)
+tokenizer = ABCTokenizer()
+train_set = DataLoader(ABCDataset(train_set, tokenizer), batch_size=batch_size, collate_fn=collate_batch)
+eval_set = DataLoader(ABCDataset(eval_set, tokenizer), batch_size=batch_size, collate_fn=collate_batch)
 config = GPT2Config(vocab_size=len(tokenizer))
 model = GPT2LMHeadModel(config).to(device)
 if torch.cuda.device_count() > 1:
