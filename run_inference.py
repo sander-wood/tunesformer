@@ -12,6 +12,7 @@ class ABCTokenizer():
         self.bos_token_id = 2
         self.eos_token_id = 3
         self.merged_tokens = []
+        
         for i in range(8):
             self.merged_tokens.append('[SECS_'+str(i+1)+']')
         for i in range(32):
@@ -34,22 +35,20 @@ class ABCTokenizer():
             if i>=128:
                 if not skip_special_tokens:
                     txt += self.merged_tokens[i-128]
-            elif i!=2 and i!=3:
+            elif i!=self.bos_token_id and i!=self.eos_token_id:
                 txt += chr(i)
         return txt
 
     def txt2ids(self, text, merged_tokens):
-        ids = [str(ord(c)) for c in text]
-        if torch.max(torch.tensor([ord(c) for c in text]))>=128:
-            return [128+len(self.merged_tokens)]
+        ids = ["\""+str(ord(c))+"\"" for c in text]
         txt_ids = ' '.join(ids)
         for t_idx, token in enumerate(merged_tokens):
-            token_ids = [str(ord(c)) for c in token]
+            token_ids = ["\""+str(ord(c))+"\"" for c in token]
             token_txt_ids = ' '.join(token_ids)
-            txt_ids = txt_ids.replace(token_txt_ids, str(t_idx+128))
+            txt_ids = txt_ids.replace(token_txt_ids, "\""+str(t_idx+128)+"\"")
         
         txt_ids = txt_ids.split(' ')
-        txt_ids = [int(i) for i in txt_ids]
+        txt_ids = [int(i[1:-1]) for i in txt_ids]
         return [self.bos_token_id]+txt_ids+[self.eos_token_id]
 
 def generate_abc(prompt, args):

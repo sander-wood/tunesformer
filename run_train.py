@@ -47,7 +47,7 @@ class ABCTokenizer():
         self.bos_token_id = 2
         self.eos_token_id = 3
         self.merged_tokens = []
-
+        
         for i in range(8):
             self.merged_tokens.append('[SECS_'+str(i+1)+']')
         for i in range(32):
@@ -64,12 +64,13 @@ class ABCTokenizer():
         encodings['attention_mask'] = torch.tensor([1]*len(encodings['input_ids']))
         return encodings
 
-    def decode(self, ids):
+    def decode(self, ids, skip_special_tokens=False):
         txt = ""
         for i in ids:
             if i>=128:
-                txt += self.merged_tokens[i-128]
-            else:
+                if not skip_special_tokens:
+                    txt += self.merged_tokens[i-128]
+            elif i!=self.bos_token_id and i!=self.eos_token_id:
                 txt += chr(i)
         return txt
 
