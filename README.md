@@ -6,7 +6,7 @@ TunesFormer is a Transformer-based melody generation system trained on 285,449 m
 
 By utilizing specific symbols commonly found in ABC notation to indicate section boundaries, TunesFormer can understand and generate melodies with given musical forms based on control codes. The checkpoint released in huggingface is TunesFormer-GP (Global Placement), where all the control codes are placed at the beginning of the ABC notation.
 
-This music generation model is available for online use and experience on [TunesFormer: Forming Tunes with Control Codes](https://huggingface.co/spaces/sander-wood/tunesformer_controllable_melody_generation). With this online platform, you can freely explore TunesFormer and receive a generated sheet music output from the model.
+This music generation model is available for online use and experience on [TunesFormer: Forming Tunes with Control Codes](https://huggingface.co/spaces/sander-wood/tunesformer). With this online platform, you can freely explore TunesFormer and receive a generated sheet music output from the model.
 
 ## Intended uses & limitations
 
