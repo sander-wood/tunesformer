@@ -132,11 +132,12 @@ def get_args(parser):
     return args
 
 if __name__ == "__main__":
-    control_codes = "[SECS_3][BARS_4][SIM_6][BARS_4][SIM_10][SIM_6][BARS_4]"
-    prompt = """L:1/4
-M:4/4
-K:C
-"C" C C G G |"F" A A"C" G2 |"G" F F"C" E E |"G" D D"C" C2 ||"""
+    control_codes = "[SECS_2][BARS_9][SIM_3][BARS_9]"
+    prompt = """L:1/8
+Q:1/4=114
+M:3/4
+K:D
+de | \"D\""""
     parser = argparse.ArgumentParser()
     args = get_args(parser)
     generate_abc(control_codes+prompt, args)

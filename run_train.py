@@ -1,6 +1,7 @@
 import json
 import torch
 import random
+from datasets import load_dataset
 from torch import nn
 from tqdm import tqdm
 from torch.cuda.amp import autocast, GradScaler
@@ -92,8 +93,8 @@ class ABCDataset(Dataset):
         self.input_masks = []
 
         for item in tqdm(items):
-            cc_tune = item["cc"]+item["tune"]
-            tune_encodings = tokenizer.encode(cc_tune)
+            tune = item["control code"]+item["abc notation"][4:]
+            tune_encodings = tokenizer.encode(tune)
             if len(tune_encodings['input_ids']) <= max_length:
                 self.input_ids.append(tune_encodings['input_ids'])
                 self.input_masks.append(tune_encodings['attention_mask'])
@@ -104,10 +105,12 @@ class ABCDataset(Dataset):
     def __getitem__(self, idx):
         return self.input_ids[idx], self.input_masks[idx]
 
-with open('abc_cc.json') as f:
-    data = json.load(f)
-    train_set, eval_set = split_data(data)
-    data = []
+raw_data = load_dataset("sander-wood/massive_abcnotation_dataset")["train"]
+data = []
+for item in raw_data:
+    data.append(item)
+train_set, eval_set = split_data(data)
+data, raw_data = [], []
 
 tokenizer = ABCTokenizer()
 train_set = DataLoader(ABCDataset(train_set, tokenizer), batch_size=batch_size, collate_fn=collate_batch)
