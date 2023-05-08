@@ -63,6 +63,15 @@ K:C
 "C" E E"G" D D |"G" D D"C" C2 ||"C" C C G G |"F" A A"C" G2 |"G" F F"C" E E |"G" D D"C" C2 |]
 ```
 
+### Train your own dataset
+Follow these steps:
+
+1. First, unzip the `data_curation.zip` file.
+2. Next, place your own symbol music data (in .xml, .mxl, .musicxml format) into the `xmls` folder.
+3. Run the `batch_converter.py` file to convert your data to ABC notation into the `abcs` folder.
+4. Run the `save_data.py` file. This will add control codes to your ABC notation and save the data as `my_dataset.json`.
+5. Finally, comment out lines 109-112 in the `run_train.py` file and uncomment lines 115-116.
+
 ### Usage
 ```
 optional arguments:
