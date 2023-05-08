@@ -105,12 +105,17 @@ class ABCDataset(Dataset):
     def __getitem__(self, idx):
         return self.input_ids[idx], self.input_masks[idx]
 
+# comment out the below lines if you want to train on your own dataset
 raw_data = load_dataset("sander-wood/massive_abcnotation_dataset")["train"]
 data = []
 for item in raw_data:
     data.append(item)
+
+# uncomment the below lines if you want to train on your own dataset
+# with open("my_dataset.json", "r") as f:
+#     raw_data = json.load(f)
+
 train_set, eval_set = split_data(data)
-data, raw_data = [], []
 
 tokenizer = ABCTokenizer()
 train_set = DataLoader(ABCDataset(train_set, tokenizer), batch_size=batch_size, collate_fn=collate_batch)
