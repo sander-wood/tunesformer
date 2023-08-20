@@ -1,0 +1,36 @@
+X:1
+S:2
+B:9
+E:4
+B:9
+L:1/8
+M:3/4
+K:D
+ de |"D" f2 fedB | A2 AF A2 |"G" B2 Bd B2 |"D" A2 AF A2 |"D" f2 fedB | A2 AF A2 |"G" B2 Bd"A" ce | 
+"D" d4 :: de |"D" f2 fdfa |"Em" g2 gfed |"A7" cecA ce |"D" fdfafd |"D" f2 fdfa |"Em" g2 gfed | 
+"A7" cecA ce |"D" d4 :|
+
+X:2
+S:2
+B:9
+E:4
+B:9
+L:1/8
+M:3/4
+K:D
+ de |"D" fdcdBd |"D" AdFAdf |"A" gecAce |"D" fdAdde | fdcdBd |"D" AdFAdf |"A" gecAce |"D" d4 :: a2 | 
+"G" gfgbd'b |"D" fad'fad' |"A7" c'bagfe |"D" d'afd A2 |"G" gfgbd'b |"D" fad'fad' |"A7" c'bagfe | 
+"D" d4 :|
+
+X:3
+S:2
+B:9
+E:4
+B:9
+L:1/8
+M:3/4
+K:D
+ de |"D" f3 e dc |"G" d2 cB AG |"D" F2 A2 d2 |"A7" f4 e2 |"D" f3 e dc |"G" d2 c2 B2 |"A7" A2 B2 c2 | 
+"D" d4 :| FG |"D" A3 B A2 |"D" A3 G FG |"D" A2 d2 f2 |"A7" e4 AA |"G" B2 Bc de |"D" f2 d2 A2 | 
+"G" Bc d2"A7" c2 |"D" d4 :|
+
