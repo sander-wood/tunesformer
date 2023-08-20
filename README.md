@@ -1,3 +1,14 @@
+---
+license: mit
+pipeline_tag: text-generation
+widget:
+- text: ''
+tags:
+- music
+datasets:
+- sander-wood/irishman
+---
+
 # TunesFormer
 
 ## Model description
@@ -144,20 +155,11 @@ optional arguments:
 
 ```bibtex
 @misc{https://doi.org/10.48550/arxiv.2301.02884,
-  doi = {10.48550/ARXIV.2301.02884},
-  
-  url = {https://arxiv.org/abs/2301.02884},
-  
-  author = {Wu, Shangda and Sun, Xiaobing Li, Feng Yu, Maosong},
-  
-  keywords = {Sound (cs.SD), Audio and Speech Processing (eess.AS), FOS: Computer and information sciences, FOS: Computer and information sciences, FOS: Electrical engineering, electronic engineering, information engineering, FOS: Electrical engineering, electronic engineering, information engineering},
-  
   title = {TunesFormer: Forming Irish Tunes with Control Codes by Bar Patching},
-  
-  publisher = {arXiv},
-  
-  year = {2023},
-  
-  copyright = {Creative Commons Attribution 4.0 International}
+      author={Shangda Wu and Feng Yu and Xiaobing Li and Maosong Sun},
+      year={2023},
+      eprint={2301.02884},
+      archivePrefix={arXiv},
+      primaryClass={cs.SD}
 }
 ```
