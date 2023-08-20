@@ -109,6 +109,15 @@ K:D
 "G" Bc d2"A7" c2 |"D" d4 :|
 ```
 
+### Caution
+ABC notation is a specialized notation of representing sheet music, and it follows a specific standard format. When interacting with TunesFormer, all trained ABC notation adheres to these standard formats.
+
+If you are unfamiliar with the details of ABC notation, we strongly recommend against manually entering ABC notation. Otherwise, the model may not recognize and generate the music correctly. Inputting incorrect formats might lead to unpredictable outputs or other issues.
+
+A general recommendation is to adjust the desired musical structure and form through control codes and ABC header, rather than directly editing the ABC notation itself.
+
+Please make sure to operate according to the provided formats and guidelines to fully leverage the capabilities of TunesFormer and achieve a satisfying music generation experience.
+
 ### Use your own dataset
 Follow these steps:
 
