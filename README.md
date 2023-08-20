@@ -6,7 +6,8 @@ TunesFormer is an efficient Transformer-based dual-decoder model specifically de
 
 Trained on 214,122 Irish tunes, TunesFormer utilizes techniques including bar patching and control codes. Bar patching reduces sequence length and generation time, while control codes guide TunesFormer in producing melodies that conform to desired musical forms.
 
-This music generation model is available for online use and experience on [huggingface spaces](https://huggingface.co/spaces/sander-wood/tunesformer). With this online platform, you can freely explore TunesFormer and receive a generated sheet music output from the model.
+TunesFormer (GPT-2 version) is available for online use and experience on [huggingface spaces](https://huggingface.co/spaces/sander-wood/tunesformer). For the full dual-decoder version of TunesFormer, please use the scripts from the [official GitHub repository](https://github.com/sander-wood/tunesformer).
+
 
 ## ABC Notation
 
