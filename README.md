@@ -116,6 +116,8 @@ If you are unfamiliar with the details of ABC notation, we strongly recommend ag
 
 A general recommendation is to adjust the desired musical structure and form through control codes and ABC header, rather than directly editing the ABC notation itself.
 
+For more detailed information about the ABC notation standard, you can refer to the [official ABC notation standard description](https://abcnotation.com/wiki/abc:standard:v2.1).
+
 Please make sure to operate according to the provided formats and guidelines to fully leverage the capabilities of TunesFormer and achieve a satisfying music generation experience.
 
 ### Use your own dataset
