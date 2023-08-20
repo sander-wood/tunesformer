@@ -6,7 +6,8 @@ from config import *
 from transformers import  GPT2Config
 import argparse
 import os
-import urllib.request
+from tqdm import tqdm
+import requests
 
 def get_args(parser):
 
@@ -40,18 +41,33 @@ def generate_abc(args):
                         vocab_size=128)
     model = TunesFormer(patch_config, char_config, share_weights=SHARE_WEIGHTS)
 
-    file_name = "weights.pth"
-    url = "https://example.com/your_weights.pth_url"
+    filename = "weights.pth"
 
-    if os.path.exists(file_name):
-        print(f"File '{file_name}' already exists locally.")
+    if os.path.exists(filename):
+        print(f"Weights already exist at '{filename}'. Loading...")
     else:
-        print(f"File '{file_name}' does not exist. Downloading from {url}...")
+        print(f"Downloading weights to '{filename}' from huggingface.co...")
         try:
-            urllib.request.urlretrieve(url, file_name)
-            print(f"File '{file_name}' downloaded successfully.")
+            url = 'https://huggingface.co/sander-wood/tunesformer/resolve/main/weights.pth'
+            response = requests.get(url, stream=True)
+
+            # 获取文件大小
+            total_size = int(response.headers.get('content-length', 0))
+            chunk_size = 1024
+
+            # 使用tqdm来显示进度条
+            with open(filename, 'wb') as file, tqdm(
+                desc=filename,
+                total=total_size,
+                unit='B',
+                unit_scale=True,
+                unit_divisor=1024,
+            ) as bar:
+                for data in response.iter_content(chunk_size=chunk_size):
+                    size = file.write(data)
+                    bar.update(size)
         except Exception as e:
-            print(f"Error downloading '{file_name}': {e}")
+            print(f"Error: {e}")
             exit()
             
     checkpoint = torch.load('weights.pth')
