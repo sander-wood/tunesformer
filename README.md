@@ -1,14 +1,3 @@
----
-license: mit
-pipeline_tag: text-generation
-widget:
-- text: ''
-tags:
-- music
-datasets:
-- sander-wood/irishman
----
-
 # TunesFormer
 
 ## Model description
