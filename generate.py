@@ -51,11 +51,9 @@ def generate_abc(args):
             url = 'https://huggingface.co/sander-wood/tunesformer/resolve/main/weights.pth'
             response = requests.get(url, stream=True)
 
-            # 获取文件大小
             total_size = int(response.headers.get('content-length', 0))
             chunk_size = 1024
 
-            # 使用tqdm来显示进度条
             with open(filename, 'wb') as file, tqdm(
                 desc=filename,
                 total=total_size,
