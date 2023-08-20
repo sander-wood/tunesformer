@@ -2,7 +2,7 @@
 
 ## Model description
 
-TunesFormer is an efficient Transformer-based dual-decoder model specifically designed for the generation of melodies that adhere to user-defined musical forms. It was introduced in the paper [TunesFormer: Forming Irish Tunes with Control Codes by Bar Patching](https://arxiv.org/abs/2301.02884) by Wu et al. The code is released in [this repository](https://github.com/sander-wood/tunesformer), and the dataset is released in [huggingface](https://huggingface.co/datasets/sander-wood/irishman). 
+TunesFormer is an efficient Transformer-based dual-decoder model specifically designed for the generation of melodies that adhere to user-defined musical forms. It was introduced in the paper [TunesFormer: Forming Irish Tunes with Control Codes by Bar Patching](https://arxiv.org/abs/2301.02884) by Wu et al. The model is released in [huggingface](https://huggingface.co/sander-wood/tunesformer), and the dataset is released in [huggingface](https://huggingface.co/datasets/sander-wood/irishman). 
 
 Trained on 214,122 Irish tunes, TunesFormer utilizes techniques including bar patching and control codes. Bar patching reduces sequence length and generation time, while control codes guide TunesFormer in producing melodies that conform to desired musical forms.
 
