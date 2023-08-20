@@ -64,7 +64,7 @@ K:D
  de |"D"
 ```
  
-3. Run the script `generate.py`. When running a script for the first time, the downloaded weights will be cached for future reuse.
+3. Run the script `generate.py`. When running a script for the first time, the downloaded weights will be cached for future reuse. If the automatic download does not work, you can manually download the weights from [here](https://huggingface.co/sander-wood/tunesformer/blob/main/weights.pth).
 
 ```
 python generate.py -num_tunes 3 -max_patch 128 -top_p 0.8 -top_k 8 -temperature 1.2 -seed 0 -show_control_code True
