@@ -145,7 +145,7 @@ optional arguments:
 ```bibtex
 @misc{https://doi.org/10.48550/arxiv.2301.02884,
   title = {TunesFormer: Forming Irish Tunes with Control Codes by Bar Patching},
-      author={Shangda Wu and Feng Yu and Xiaobing Li and Maosong Sun},
+      author={Shangda Wu and Xiaobing Li and Feng Yu and Maosong Sun},
       year={2023},
       eprint={2301.02884},
       archivePrefix={arXiv},
