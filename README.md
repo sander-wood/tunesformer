@@ -23,7 +23,7 @@ For those looking to interact with ABC notation in various ways, there are sever
 
 The **Irish Massive ABC Notation ([IrishMAN](https://huggingface.co/datasets/sander-wood/irishman))** dataset includes 216,284 Irish tunes in ABC notation, divided into 99\% (214,122 tunes) for training and 1\% (2,162 tunes) for validation. These tunes were collected from thesession.org and abcnotation.com, both renowned for sharing traditional music. To ensure uniformity in formatting, all tunes were converted to XML and then back to ABC using [scripts](https://wim.vree.org/svgParse/), and fields containing natural language (e.g., titles and lyrics) were removed.
 
-Each tune is automatically annotated with control codes derived from ABC symbols, as described in Section 2.2. These control codes offer insights into the musical forms and structures of each composition.
+Each tune is automatically annotated with control codes derived from ABC symbols, as described in the below section. These control codes offer insights into the musical forms and structures of each composition.
 
 In the IrishMAN dataset, a [music21](https://web.mit.edu/music21/doc/index.html#)-filtered [subset](https://huggingface.co/datasets/sander-wood/irishman/blob/main/leadsheet.json) includes 34,211 lead sheets, each human-annotated with chord symbols. It is from this very subset that TunesFormer developed its capacity to generate melodies with harmonies.
 
