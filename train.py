@@ -61,7 +61,7 @@ class MyDataset(Dataset):
         self.texts = []
         
         for item in tqdm(items):
-            text = item['control code']+item['abc notation'][4:]
+            text = item['control code']+"\n".join(item['abc notation'].split('\n')[1:])
             input_patch =  patchilizer.encode(text, add_special_patches=True)
             input_patch = torch.tensor(input_patch)
             if torch.sum(input_patch)!=0:
