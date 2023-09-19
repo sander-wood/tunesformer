@@ -25,7 +25,7 @@ The **Irish Massive ABC Notation ([IrishMAN](https://huggingface.co/datasets/san
 
 Each tune is automatically annotated with control codes derived from ABC symbols, as described in the below section. These control codes offer insights into the musical forms and structures of each composition.
 
-In the IrishMAN dataset, a [music21](https://web.mit.edu/music21/doc/index.html#)-filtered [subset]([https://huggingface.co/datasets/sander-wood/irishman/blob/main/leadsheet.json](https://huggingface.co/datasets/sander-wood/irishman/raw/main/leadsheet_ids.json)) includes 34,211 lead sheets, each human-annotated with chord symbols. It is from this very subset that TunesFormer developed its capacity to generate melodies with harmonies.
+In the IrishMAN dataset, a [music21](https://web.mit.edu/music21/doc/index.html#)-filtered [subset](https://huggingface.co/datasets/sander-wood/irishman/raw/main/leadsheet_ids.json) includes 34,211 lead sheets, each human-annotated with chord symbols. It is from this very subset that TunesFormer developed its capacity to generate melodies with harmonies.
 
 A noteworthy aspect is the copyright status. All tunes in the dataset are in the public domain, ensuring ethical and legal usage for research and creative projects.
 
